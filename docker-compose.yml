@@ -32,14 +32,3 @@ services:
           - "${SOURCE_DIR}:${CONTAINER_DIR}"
         depends_on:
           - mysql
-
-    phpmyadmin:
-        image: phpmyadmin/phpmyadmin
-        container_name: website_phpmyadmin
-        environment:
-          PMA_HOST: mysql
-          PMA_PORT: 3306
-        ports:
-            - 8080:80
-        links:
-            - mysql
