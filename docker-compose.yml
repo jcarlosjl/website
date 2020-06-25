@@ -29,5 +29,7 @@ services:
         build: Docker/php
         volumes:
           - "${SOURCE_DIR}:/var/www/jcarlosjl"
+        environment: 
+          APP_ENV: "${APP_ENV}"
         depends_on:
           - mysql
