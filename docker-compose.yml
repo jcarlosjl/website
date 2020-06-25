@@ -25,7 +25,7 @@ services:
             MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
 
     php:
-        image: php:7.4-fpm
+        image: jcarlosjl/webpage
         build: Docker/php
         volumes:
           - "${SOURCE_DIR}:/var/www/jcarlosjl"
