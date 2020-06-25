@@ -1,19 +1,18 @@
 version: '3'
 services:
-    apache:
-        build: Docker/apache
-        container_name: website_apache
+    web:
+        image: nginx:latest
         ports:
-          - 80:80
+          - "80:80"
+          - "443:443"
         volumes:
-          - "${SOURCE_DIR}/Docker/config/vhosts:/etc/apache2/sites-enabled"
-          - "${SOURCE_DIR}:${CONTAINER_DIR}"
+          - "${SOURCE_DIR}:/var/www/jcarlosjl"
+          - "./Docker/nginx/conf:/etc/nginx/conf.d/"
         depends_on:
           - php
 
     mysql:
         image: mysql:8
-        container_name: website_mysql
         volumes:
             - "${DATABASE_DIR}:/var/lib/mysql"
         command:
@@ -26,9 +25,9 @@ services:
             MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
 
     php:
+        image: php:7.4-fpm
         build: Docker/php
-        container_name: website_php
         volumes:
-          - "${SOURCE_DIR}:${CONTAINER_DIR}"
+          - "${SOURCE_DIR}:/var/www/jcarlosjl"
         depends_on:
           - mysql
