@@ -6,7 +6,7 @@ services:
           - "80:80"
           - "443:443"
         volumes:
-          - "${SOURCE_DIR}:/var/www/jcarlosjl"
+          - "${SOURCE_DIR}:${CONTAINER_DIR}"
           - "./Docker/nginx/conf:/etc/nginx/conf.d/"
         depends_on:
           - php
@@ -28,8 +28,13 @@ services:
         image: jcarlosjl/webpage
         build: Docker/php
         volumes:
-          - "${SOURCE_DIR}:/var/www/jcarlosjl"
+          - "${SOURCE_DIR}:${CONTAINER_DIR}"
         environment: 
           APP_ENV: "${APP_ENV}"
         depends_on:
           - mysql
+    composer:
+        image: composer
+        command: ["composer", "install", "--no-interaction"]
+        volumes: 
+          - "${SOURCE_DIR}:/app"
